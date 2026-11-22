@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harga TBS &amp; Potongan — CostCare</title>
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/base.css?v=2">
+  <link rel="stylesheet" href="../assets/css/app.css?v=2">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar" id="topbar"></header>
+
+  <main id="main" class="col">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow">Data master · berlaku untuk transaksi baru</div>
+        <h1>Harga TBS &amp; Potongan</h1>
+      </div>
+      <button type="button" class="btn btn-primary btn-pill" id="propose-btn" hidden>+ Ajukan harga baru</button>
+    </div>
+
+    <form class="card" id="propose-form" hidden novalidate>
+      <div class="card-head"><h2>Ajukan perubahan harga</h2><span class="small muted-2" id="propose-note"></span></div>
+      <div class="form-grid">
+        <div class="field"><label for="p-price">Harga baru (Rp/kg)</label><input class="input input-lg" id="p-price" inputmode="numeric" placeholder="cth. 2880"><span class="field-error" id="p-price-err" hidden></span></div>
+        <div class="field"><label for="p-from">Berlaku mulai</label><input class="input" id="p-from" type="date"><span class="field-error" id="p-from-err" hidden></span></div>
+        <div class="field"><label for="p-reason">Dasar perubahan</label><select class="input" id="p-reason"><option>Harga beli pabrik naik</option><option>Harga beli pabrik turun</option><option>Harga penetapan Disbun</option><option>Kebijakan RAM</option></select></div>
+      </div>
+      <p class="small muted-2">Transaksi yang sudah dibuat tetap memakai harga lamanya. Harga baru otomatis aktif pada tanggal berlaku.</p>
+      <div class="form-actions"><button type="button" class="btn btn-outline" id="propose-cancel">Batal</button><button type="submit" class="btn btn-dark">Kirim pengajuan</button></div>
+    </form>
+
+    <div class="row stretch">
+      <section class="card card-dark f1" aria-labelledby="t-aktif" style="padding:26px 28px">
+        <img class="watermark" src="../assets/img/costcare-mark.png" alt="" style="right:-60px;bottom:-70px;width:260px;opacity:.08">
+        <h2 id="t-aktif" style="font-size:14px;font-weight:500;color:var(--on-dark);position:relative">Harga TBS berlaku sekarang</h2>
+        <div id="active-price" style="position:relative;display:flex;flex-direction:column;gap:14px"></div>
+      </section>
+      <section class="card f1" aria-labelledby="t-jadwal">
+        <h2 id="t-jadwal">Perubahan terjadwal</h2>
+        <div class="col" style="gap:12px;flex:1" id="scheduled"></div>
+      </section>
+      <section class="card f15" aria-labelledby="t-riwayat">
+        <h2 id="t-riwayat">Riwayat harga</h2>
+        <div class="bars" id="price-bars" role="img" style="height:180px"></div>
+        <span class="xs muted">Tinggi batang dihitung dari selisih terhadap harga terendah. Garis putus = terjadwal.</span>
+      </section>
+    </div>
+
+    <section class="card" aria-labelledby="t-pot" style="padding:24px 12px 12px">
+      <div class="card-head" style="padding:0 12px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 id="t-pot">Jenis potongan sortasi</h2>
+          <span class="card-sub">Grader mencatat persen per transaksi. Di sini Anda mengatur jenis potongan dan batas review.</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+          <label class="small strong" for="review-pot">Batas review total</label>
+          <span style="display:inline-flex;align-items:center;gap:6px"><input class="input" id="review-pot" type="number" min="1" max="20" step="0.5" style="width:90px;min-height:42px"><span class="small">%</span></span>
+          <button type="button" class="btn btn-sm btn-outline" id="add-ded-btn" hidden>+ Jenis potongan</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="rows" style="min-width:820px">
+          <thead><tr><th>Jenis potongan</th><th>Dihitung dari</th><th>Rata-rata bulan ini</th><th>Contoh kondisi</th><th>Aktif</th></tr></thead>
+          <tbody id="ded-rows"></tbody>
+        </table>
+      </div>
+      <p class="small muted" style="padding:4px 12px 8px" id="ded-note"></p>
+    </section>
+
+    <section class="card" aria-labelledby="t-log" style="padding:22px 12px 12px">
+      <h2 id="t-log" style="padding:0 12px">Semua pengajuan harga</h2>
+      <div class="table-wrap">
+        <table class="rows" style="min-width:760px">
+          <thead><tr><th>Berlaku mulai</th><th class="right">Harga</th><th>Dasar</th><th>Diajukan</th><th>Diputuskan</th><th>Status</th></tr></thead>
+          <tbody id="price-log"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast-root" class="toast-root" aria-live="polite"></div>
+<script src="../assets/js/store.js?v=2"></script>
+<script src="../assets/js/ui.js?v=2"></script>
+<script src="../assets/js/pages/harga.js?v=2"></script>
+</body>
+</html>

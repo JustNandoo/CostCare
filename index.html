@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CostCare — Sistem Timbang &amp; Pembelian TBS untuk RAM Sawit</title>
+  <meta name="description" content="CostCare membantu RAM sawit mencatat timbangan TBS, mengenali supplier, menghitung pembelian dan mencatat pembayaran dalam satu sistem.">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/base.css?v=2">
+  <link rel="stylesheet" href="assets/css/site.css?v=2">
+</head>
+<body class="site">
+<a href="#konten" class="sr-only">Lewati ke konten</a>
+<div class="site-wrap">
+
+  <header class="site-header container" id="site-header">
+    <a class="brand" href="index.html"><img src="assets/img/costcare-logo.png" alt="CostCare"></a>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Buka menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Navigasi situs">
+      <a href="#alur">Alur kerja</a>
+      <a href="#peran">Fitur</a>
+      <a href="#perangkat">Perangkat</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="site-cta">
+      <a class="btn btn-outline btn-pill" href="masuk.html">Masuk</a>
+      <a class="btn btn-dark btn-pill" href="#demo">Jadwalkan demo</a>
+    </div>
+  </header>
+
+  <main id="konten" class="col" style="gap:32px">
+    <section class="hero container" aria-labelledby="hero-title">
+      <img class="watermark" src="assets/img/costcare-mark.png" alt="" style="left:-140px;bottom:-180px;width:520px">
+      <div class="hero-copy">
+        <span class="eyebrow-pill"><i></i>Untuk RAM &amp; pengepul TBS sawit</span>
+        <h1 id="hero-title">Dari jembatan timbang ke <em>kendali bisnis.</em></h1>
+        <p class="lead">CostCare membantu RAM sawit mencatat timbangan TBS, mengenali supplier, menghitung pembelian dan mencatat pembayaran — dalam satu sistem yang mudah dipakai operator.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg btn-pill" href="#demo">Jadwalkan demo</a>
+          <a class="btn btn-lg btn-pill btn-ghost-dark" href="masuk.html">Coba prototipe</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hv-weight">
+          <span class="chip chip-lime" style="align-self:flex-start;background:#244F2A;color:#D7EDA3;letter-spacing:.06em"><span class="dot" style="background:var(--lime)"></span>STABIL</span>
+          <span class="w" id="hero-weight">3.210<span> kg</span></span>
+          <div class="stab-bar" style="height:8px;border-radius:999px;background:var(--forest);overflow:hidden"><i style="display:block;width:100%;height:100%;background:var(--lime);border-radius:999px"></i></div>
+          <span class="xs" style="color:var(--on-dark)">Timbangan 01 · contoh tampilan</span>
+        </div>
+        <div class="hv-row">
+          <div class="rfid-card" style="position:relative;overflow:hidden;background:var(--teal);color:#fff;border-radius:22px;padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+            <span class="xs" style="font-weight:600;letter-spacing:.12em;color:var(--on-dark-2)">KARTU RFID</span>
+            <span style="width:36px;height:26px;border-radius:6px;background:#D9EBA6"></span>
+            <span style="font-size:17px;font-weight:600">Budi Santoso</span>
+            <span class="mono xs" style="color:var(--on-dark-2)">SUP-00281</span>
+          </div>
+          <div class="hv-ticket">
+            <span class="mono xs strong" style="letter-spacing:.08em;color:var(--ink-2)">TIKET TIMBANG</span>
+            <span class="r"><span>Netto</span><b>5.210 kg</b></span>
+            <span class="r"><span>Potongan 3%</span><b class="warn-text">− 156,3 kg</b></span>
+            <span class="r"><span>Dibayar</span><b>5.053,7 kg</b></span>
+            <span class="r"><span>Harga</span><b>Rp2.850/kg</b></span>
+            <span style="height:0;border-top:2px dashed var(--line-2);margin:4px 0"></span>
+            <span style="font-size:20px;font-weight:600">Rp14.403.045</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-pad col" style="gap:28px" aria-labelledby="masalah">
+      <h2 class="section-title" id="masalah">Masalah harian di RAM yang ingin kami rapikan</h2>
+      <div class="feature-grid">
+        <div class="feature"><span class="n">01</span><h3>Angka disalin dengan tangan</h3><p>Berat dari indikator ditulis ke buku lalu diketik ulang. Setiap salinan membuka peluang salah.</p></div>
+        <div class="feature"><span class="n">02</span><h3>Hitungan bisa berbeda-beda</h3><p>Potongan sortasi, harga dan pembulatan dihitung manual sehingga sulit dijelaskan ke supplier.</p></div>
+        <div class="feature"><span class="n">03</span><h3>Pemilik menunggu rekap</h3><p>Tonase, nilai pembelian dan utang ke supplier baru terlihat setelah buku direkap.</p></div>
+      </div>
+    </section>
+
+    <section class="band container" id="alur" aria-labelledby="judul-alur">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px">
+        <h2 class="section-title" id="judul-alur" style="max-width:640px">Satu truk, enam langkah, satu catatan</h2>
+        <p class="section-lead">Setiap langkah tercatat dengan waktu, perangkat dan petugasnya.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="n">1</span><h3>Gerbang</h3><p>Supplier tap kartu RFID. Nama, truk dan kebun asal muncul otomatis.</p></li>
+        <li><span class="n">2</span><h3>Timbang bruto</h3><p>Berat truk bermuatan diambil dari indikator setelah stabil.</p></li>
+        <li><span class="n">3</span><h3>Sortasi</h3><p>Grader mencatat potongan buah mentah, tangkai dan lainnya.</p></li>
+        <li class="hi"><span class="n">4</span><h3>Timbang tara</h3><p>Truk kosong ditimbang. Netto dan total dihitung otomatis.</p></li>
+        <li><span class="n">5</span><h3>Review</h3><p>Admin memeriksa transaksi yang ditandai aturan.</p></li>
+        <li><span class="n">6</span><h3>Tiket &amp; bayar</h3><p>Tiket dicetak, pembayaran dicatat terpisah.</p></li>
+      </ol>
+    </section>
+
+    <section class="container section-pad col" style="gap:28px" id="peran" aria-labelledby="judul-peran">
+      <h2 class="section-title" id="judul-peran">Satu sistem, tampilan sesuai peran</h2>
+      <div class="feature-grid">
+        <div class="feature"><span class="chip chip-ok" style="align-self:flex-start">Operator timbangan</span><h3>Fokus ke truk yang sedang ditimbang</h3><ul><li>Angka besar dan status stabil yang jelas</li><li>Tombol kunci berat hanya aktif saat stabil</li><li>Panduan saat timbangan terputus</li></ul></div>
+        <div class="feature"><span class="chip chip-done" style="align-self:flex-start">Admin &amp; keuangan</span><h3>Review, nota dan pembayaran</h3><ul><li>Rincian hitung yang bisa dijelaskan ke supplier</li><li>Koreksi tercatat, nilai lama tidak hilang</li><li>Catat bayar tunai, transfer atau sebagian</li></ul></div>
+        <div class="feature dark"><span class="chip chip-lime" style="align-self:flex-start">Pemilik RAM</span><h3>Angka hari ini tanpa menunggu rekap</h3><ul><li>Tonase, nilai pembelian, utang supplier</li><li>Setujui harga dan pengecualian</li><li>Jejak audit setiap perubahan</li></ul></div>
+      </div>
+    </section>
+
+    <section class="band lime container" id="perangkat" aria-labelledby="judul-perangkat">
+      <div style="flex:1.2 1 400px;display:flex;flex-direction:column;gap:16px">
+        <h2 class="section-title" id="judul-perangkat">Dirancang untuk timbangan yang sudah Anda punya</h2>
+        <p style="font-size:16px;line-height:1.6">Indikator timbangan tiap RAM berbeda. Karena itu kami cek dan uji dulu di lokasi sebelum menghubungkan. Bila indikator belum bisa terhubung, tersedia input manual yang ditandai dan wajib direview.</p>
+      </div>
+      <ul class="checklist" style="flex:1 1 320px">
+        <li><i></i>Survei merek &amp; model indikator</li>
+        <li><i></i>Uji koneksi data (RS-232, USB atau LAN)</li>
+        <li><i></i>Pasang pembaca kartu RFID di pintu masuk</li>
+      </ul>
+    </section>
+
+    <section class="container section-pad col" style="gap:28px" id="roadmap" aria-labelledby="judul-roadmap">
+      <h2 class="section-title" id="judul-roadmap">Yang dibangun dulu, dan yang menyusul</h2>
+      <div class="feature-grid">
+        <div class="feature"><span class="chip chip-dark" style="align-self:flex-start">Tahap pertama (MVP)</span><ul><li>Timbang langsung bruto/tara</li><li>Supplier, kendaraan &amp; kartu RFID</li><li>Harga TBS dan potongan yang bisa diatur</li><li>Tiket, riwayat transaksi &amp; jejak audit</li><li>Ringkasan harian untuk pemilik</li></ul></div>
+        <div class="feature" style="box-shadow:inset 0 0 0 2px var(--line)"><span class="chip" style="align-self:flex-start">Menyusul</span><ul><li>Nota &amp; pembayaran yang lebih lengkap</li><li>Banyak lokasi RAM dalam satu akun</li><li>Pengenalan plat nomor otomatis (ANPR)</li><li>Sambungan ke sistem akuntansi</li><li>Deteksi pola transaksi tidak wajar</li></ul></div>
+      </div>
+    </section>
+
+    <section class="container section-pad" id="faq" aria-labelledby="judul-faq" style="display:flex;flex-wrap:wrap;gap:32px">
+      <h2 class="section-title" id="judul-faq" style="flex:1 1 280px">Pertanyaan yang sering muncul</h2>
+      <div class="faq" style="flex:2 1 520px">
+        <details><summary>Apakah harus mengganti timbangan?</summary><p>Tidak harus. Kami cek dulu apakah indikator yang ada bisa mengirim data. Hasil survei menentukan cara menghubungkannya.</p></details>
+        <details><summary>Bagaimana jika internet putus?</summary><p>Kebutuhan kerja tanpa internet sedang kami pelajari bersama RAM percontohan. Detailnya dikonfirmasi sebelum pemasangan.</p></details>
+        <details><summary>Apakah rumus potongan bisa disesuaikan?</summary><p>Bisa. Dasar potongan, pembulatan berat dan pembulatan rupiah diatur per RAM, dan setiap perubahannya tercatat.</p></details>
+        <details><summary>Apakah CostCare mentransfer uang ke supplier?</summary><p>Tidak. CostCare mencatat pembayaran yang Anda lakukan sendiri lewat tunai atau bank.</p></details>
+      </div>
+    </section>
+
+    <section class="band dark container" id="demo" aria-labelledby="judul-demo">
+      <div style="flex:1 1 340px;display:flex;flex-direction:column;gap:16px">
+        <h2 class="section-title" id="judul-demo">Lihat CostCare di RAM Anda</h2>
+        <p style="font-size:16px;line-height:1.6;color:var(--on-dark-2)">Ceritakan sedikit tentang RAM Anda. Kami akan menghubungi lewat WhatsApp untuk mengatur demo.</p>
+        <span class="small" style="color:var(--on-dark)">Kontak langsung: [NO. WHATSAPP] · [EMAIL]</span>
+      </div>
+      <form class="demo-form" id="demo-form" novalidate>
+        <div class="field"><label for="d-nama">Nama</label><input class="input" id="d-nama" name="nama" autocomplete="name" required></div>
+        <div class="field"><label for="d-ram">Nama RAM</label><input class="input" id="d-ram" name="ram" required></div>
+        <div class="field"><label for="d-lokasi">Kabupaten / kota</label><input class="input" id="d-lokasi" name="lokasi"></div>
+        <div class="field"><label for="d-wa">Nomor WhatsApp</label><input class="input" id="d-wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xx-xxxx-xxxx" required></div>
+        <div class="full" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+          <span class="small strong" id="demo-msg" role="status" style="color:var(--on-dark-2)"></span>
+          <button type="submit" class="btn btn-primary btn-lg btn-pill">Kirim permintaan</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <img src="assets/img/costcare-logo.png" alt="CostCare">
+    <span>© <span id="year">2026</span> CostCare · prototipe dengan data demo</span>
+    <a href="masuk.html" class="strong">Masuk ke aplikasi</a>
+  </footer>
+</div>
+<script src="assets/js/store.js?v=2"></script>
+<script>
+(function () {
+  'use strict';
+  var header = document.getElementById('site-header');
+  var toggle = document.getElementById('menu-toggle');
+  document.getElementById('year').textContent = new Date().getFullYear();
+  toggle.addEventListener('click', function () {
+    var open = header.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+  });
+  document.querySelectorAll('.site-nav a, .site-cta a').forEach(function (a) {
+    a.addEventListener('click', function () { header.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); });
+  });
+
+  // angka hero bergerak pelan seperti indikator
+  var w = document.getElementById('hero-weight');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var vals = [3210, 3212, 3209, 3210, 3211, 3210];
+    var i = 0;
+    setInterval(function () { i = (i + 1) % vals.length; w.firstChild.textContent = vals[i].toLocaleString('id-ID'); }, 900);
+  }
+
+  var form = document.getElementById('demo-form');
+  var msg = document.getElementById('demo-msg');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nama = form.nama, ram = form.ram, wa = form.wa, bad = [];
+    [nama, ram, wa].forEach(function (el) { el.removeAttribute('aria-invalid'); });
+    if (nama.value.trim().length < 3) bad.push(nama);
+    if (ram.value.trim().length < 3) bad.push(ram);
+    if (!/^[0-9+\-\s]{9,16}$/.test(wa.value.trim())) bad.push(wa);
+    if (bad.length) {
+      bad.forEach(function (el) { el.setAttribute('aria-invalid', 'true'); });
+      msg.style.color = '#F6C2B9';
+      msg.textContent = bad[0] === wa ? 'Nomor WhatsApp tidak valid (9–16 digit).' : 'Lengkapi nama dan nama RAM (minimal 3 huruf).';
+      bad[0].focus();
+      return;
+    }
+    var S = window.CC.store;
+    S.state.demoRequests.push({ at: Date.now(), nama: nama.value.trim(), ram: ram.value.trim(), lokasi: form.lokasi.value.trim(), wa: wa.value.trim() });
+    S.commit();
+    form.reset();
+    msg.style.color = '#D7EDA3';
+    msg.textContent = 'Terima kasih! Permintaan tersimpan (prototipe — belum terkirim ke server).';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masuk — CostCare</title>
+  <meta name="description" content="Masuk ke aplikasi CostCare untuk RAM sawit.">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/base.css?v=2">
+  <link rel="stylesheet" href="assets/css/site.css?v=2">
+</head>
+<body>
+<div class="login">
+  <section class="login-art" aria-label="Tentang CostCare">
+    <img class="watermark" src="assets/img/costcare-mark.png" alt="" style="right:-120px;bottom:-120px;width:520px;opacity:.1">
+    <a href="index.html"><img class="logo" src="assets/img/costcare-logo-ondark.png" alt="CostCare"></a>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h1>Dari jembatan timbang ke <em>kendali bisnis.</em></h1>
+      <p>Timbang TBS, kenali supplier, hitung pembelian dan catat pembayaran RAM Anda dalam satu tempat.</p>
+    </div>
+    <ul>
+      <li>Berat langsung dari indikator</li>
+      <li>Kartu RFID supplier</li>
+      <li>Jejak audit lengkap</li>
+    </ul>
+  </section>
+
+  <main class="login-main">
+    <form class="login-form" id="login-form" novalidate aria-labelledby="login-title">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span class="chip chip-done" id="site-chip" style="align-self:flex-start"><span class="dot"></span>RAM Harapan · Dumai</span>
+        <h2 id="login-title" style="margin-top:6px">Masuk</h2>
+        <span class="muted-2">Menu yang tampil mengikuti peran Anda.</span>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input class="input" id="email" name="email" type="email" autocomplete="username" placeholder="nama@costcare.id" required>
+      </div>
+      <div class="field">
+        <label for="password">Kata sandi</label>
+        <div class="pw-wrap" id="pw-wrap">
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button type="button" id="toggle-pw" aria-pressed="false" aria-controls="password">Lihat</button>
+        </div>
+      </div>
+      <p class="notice bad" id="login-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" id="login-btn">Masuk</button>
+      <span class="small muted-2">Lupa kata sandi? Minta Pemilik RAM mengatur ulang dari Pengaturan › Pengguna.</span>
+
+      <div class="demo-accounts">
+        <span class="small muted">Akun demo (kata sandi <b class="mono">demo123</b>) — klik untuk mengisi:</span>
+        <div class="list">
+          <button type="button" class="demo-acc" data-email="rina@costcare.id"><b>Operator</b><small>rina@costcare.id</small></button>
+          <button type="button" class="demo-acc" data-email="maya@costcare.id"><b>Admin &amp; keuangan</b><small>maya@costcare.id</small></button>
+          <button type="button" class="demo-acc" data-email="hasan@costcare.id"><b>Pemilik</b><small>hasan@costcare.id</small></button>
+          <button type="button" class="demo-acc" data-email="audit@costcare.id"><b>Auditor</b><small>audit@costcare.id</small></button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+<script src="assets/js/store.js?v=2"></script>
+<script>
+(function () {
+  'use strict';
+  var S = window.CC.store;
+  var HOME = { pemilik: 'ringkasan.html', admin: 'ringkasan.html', operator: 'timbang.html', auditor: 'ringkasan.html' };
+  var form = document.getElementById('login-form');
+  var email = document.getElementById('email');
+  var pw = document.getElementById('password');
+  var wrap = document.getElementById('pw-wrap');
+  var err = document.getElementById('login-error');
+  var btn = document.getElementById('login-btn');
+  var st = S.state.settings;
+  document.getElementById('site-chip').lastChild.textContent = st.site + ' · ' + st.city;
+
+  var params = new URLSearchParams(location.search);
+  var next = params.get('next');
+  var existing = S.currentUser();
+  if (existing && !next) { /* sudah masuk */ }
+
+  function showError(msg) { err.textContent = msg; err.hidden = false; }
+  function clearError() { err.hidden = true; email.removeAttribute('aria-invalid'); wrap.classList.remove('invalid'); pw.removeAttribute('aria-invalid'); }
+
+  document.getElementById('toggle-pw').addEventListener('click', function () {
+    var show = pw.type === 'password';
+    pw.type = show ? 'text' : 'password';
+    this.textContent = show ? 'Sembunyikan' : 'Lihat';
+    this.setAttribute('aria-pressed', String(show));
+  });
+  email.addEventListener('input', clearError);
+  pw.addEventListener('input', clearError);
+
+  document.querySelectorAll('.demo-acc').forEach(function (b) {
+    b.addEventListener('click', function () {
+      email.value = b.getAttribute('data-email');
+      pw.value = S.DEMO_PASSWORD;
+      clearError();
+      btn.focus();
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError();
+    var bad = false;
+    if (!email.value.trim()) { email.setAttribute('aria-invalid', 'true'); bad = true; }
+    if (!pw.value) { pw.setAttribute('aria-invalid', 'true'); wrap.classList.add('invalid'); bad = true; }
+    if (bad) { showError('Isi email dan kata sandi.'); (email.value.trim() ? pw : email).focus(); return; }
+    btn.disabled = true; btn.textContent = 'Memeriksa…';
+    setTimeout(function () {
+      var u = S.login(email.value, pw.value);
+      if (!u) {
+        btn.disabled = false; btn.textContent = 'Masuk';
+        showError('Email atau kata sandi salah. Coba akun demo di bawah.');
+        pw.select();
+        return;
+      }
+      var target = next && /^[a-z]+\.html$/.test(next) ? next : HOME[u.role];
+      location.href = 'app/' + target;
+    }, 450);
+  });
+})();
+</script>
+</body>
+</html>

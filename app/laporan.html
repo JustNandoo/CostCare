@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laporan — CostCare</title>
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/base.css?v=2">
+  <link rel="stylesheet" href="../assets/css/app.css?v=2">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar" id="topbar"></header>
+
+  <main id="main" class="col">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow" id="subtitle">—</div>
+        <h1 id="title">Laporan</h1>
+      </div>
+      <div class="page-actions">
+        <label class="sr-only" for="range">Periode</label>
+        <select class="select-pill input" id="range" style="width:auto;min-height:46px">
+          <option value="bulan">Bulan ini</option>
+          <option value="bulan-lalu">Bulan lalu</option>
+          <option value="7">7 hari terakhir</option>
+          <option value="30">30 hari terakhir</option>
+        </select>
+        <button type="button" class="btn btn-teal btn-pill" id="csv-btn">Ekspor Excel (CSV)</button>
+        <button type="button" class="btn btn-dark btn-pill" id="pdf-btn">Cetak / PDF</button>
+      </div>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div class="row stretch">
+      <section class="card f15" aria-labelledby="t-harian">
+        <div class="card-head"><h2 id="t-harian">Tonase netto harian</h2><span class="small muted" id="daily-note"></span></div>
+        <div class="bars" id="daily" role="img" style="height:230px;gap:4px"></div>
+      </section>
+      <section class="card f1" aria-labelledby="t-kas">
+        <h2 id="t-kas">Arus kas ke supplier</h2>
+        <div class="stack" id="cash-stack" role="img" style="height:18px"></div>
+        <div id="cash"></div>
+        <a href="pembayaran.html" class="small strong">Kelola pembayaran →</a>
+      </section>
+    </div>
+
+    <div class="row stretch">
+      <section class="card f1" aria-labelledby="t-pot">
+        <h2 id="t-pot">Komposisi potongan</h2>
+        <div class="stack" id="ded-stack" role="img" style="height:22px"></div>
+        <ul class="legend" id="ded-legend" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px"></ul>
+        <span class="small muted" id="ded-note"></span>
+      </section>
+      <section class="card f1" aria-labelledby="t-flag">
+        <div class="card-head"><h2 id="t-flag">Transaksi yang ditandai</h2><span class="small muted-2" id="flag-sum"></span></div>
+        <div class="col" style="gap:8px" id="flags"></div>
+        <p class="notice" style="box-shadow:inset 0 0 0 1.5px #B3C2B0;font-size:12.5px;color:var(--ink-2)"><span><strong style="color:var(--ink)">Roadmap</strong>Deteksi anomali berbasis pola. Saat ini penandaan memakai aturan yang bisa diatur dan selalu diputuskan manusia.</span></p>
+      </section>
+    </div>
+
+    <section class="card" aria-labelledby="t-top" style="padding:22px 12px 12px">
+      <h2 id="t-top" style="padding:0 12px">Supplier teratas</h2>
+      <div class="table-wrap">
+        <table class="rows" style="min-width:760px">
+          <thead><tr><th>#</th><th>Supplier</th><th class="right">Transaksi</th><th class="right">Netto</th><th class="right">Nilai</th><th class="right">Rata-rata potongan</th><th>Porsi tonase</th></tr></thead>
+          <tbody id="top"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast-root" class="toast-root" aria-live="polite"></div>
+<script src="../assets/js/store.js?v=2"></script>
+<script src="../assets/js/ui.js?v=2"></script>
+<script src="../assets/js/pages/laporan.js?v=2"></script>
+</body>
+</html>

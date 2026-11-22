@@ -1,0 +1,10 @@
+# Sistem & editor
+.DS_Store
+.idea/
+.vscode/
+.claude/
+
+# Ekspor desain lama (zip & screenshot), bukan bagian kode
+novgo-export/
+costcare-export/
+*.zip

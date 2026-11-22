@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pengaturan &amp; Audit — CostCare</title>
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/base.css?v=2">
+  <link rel="stylesheet" href="../assets/css/app.css?v=2">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar" id="topbar"></header>
+
+  <main id="main" class="col">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow" id="subtitle">Sistem</div>
+        <h1>Pengaturan &amp; Audit</h1>
+      </div>
+      <div class="segmented" role="tablist" aria-label="Bagian pengaturan" id="tabs">
+        <button type="button" role="tab" data-tab="aturan" aria-selected="true">Aturan hitung</button>
+        <button type="button" role="tab" data-tab="perangkat" aria-selected="false">Perangkat</button>
+        <button type="button" role="tab" data-tab="pengguna" aria-selected="false">Pengguna &amp; peran</button>
+        <button type="button" role="tab" data-tab="audit" aria-selected="false">Jejak audit</button>
+        <button type="button" role="tab" data-tab="data" aria-selected="false">Data demo</button>
+      </div>
+    </div>
+
+    <p class="notice info" id="readonly-note" hidden><span class="ic">i</span><span><strong>Mode baca saja</strong>Peran Auditor dapat melihat pengaturan dan jejak audit, tetapi tidak dapat mengubahnya.</span></p>
+
+    <!-- Aturan hitung -->
+    <div class="row" id="pane-aturan" role="tabpanel">
+      <section class="card f15" aria-labelledby="t-aturan" style="gap:22px">
+        <div><h2 id="t-aturan" style="font-size:18px">Aturan hitung pembelian</h2><span class="card-sub">Setiap RAM bisa berbeda. Perubahan hanya berlaku untuk transaksi baru — transaksi lama menyimpan aturannya sendiri.</span></div>
+        <div id="rule-groups" class="col" style="gap:20px"></div>
+        <div class="form-grid">
+          <div class="field"><label for="s-stabTol">Toleransi stabil (kg)</label><input class="input" id="s-stabTol" type="number" min="1" max="50" data-num="stabTol"></div>
+          <div class="field"><label for="s-stabSec">Lama stabil (detik)</label><input class="input" id="s-stabSec" type="number" min="1" max="10" data-num="stabSec"></div>
+          <div class="field"><label for="s-reviewPot">Review jika potongan &gt; (%)</label><input class="input" id="s-reviewPot" type="number" min="1" max="20" step="0.5" data-num="reviewPot"></div>
+          <div class="field"><label for="s-reviewTara">Review jika tara menyimpang &gt; (%)</label><input class="input" id="s-reviewTara" type="number" min="1" max="30" data-num="reviewTara"></div>
+        </div>
+        <p class="field-error" id="rule-err" hidden></p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+          <span class="small" id="save-text" role="status"></span>
+          <div style="display:flex;gap:10px"><button type="button" class="btn btn-outline" id="rule-reset">Kembalikan</button><button type="button" class="btn btn-primary btn-lg" id="rule-save" disabled>Simpan aturan</button></div>
+        </div>
+      </section>
+      <section class="card card-dark f1" aria-labelledby="t-contoh" style="font-variant-numeric:tabular-nums">
+        <img class="watermark" src="../assets/img/costcare-mark.png" alt="" style="right:-50px;top:-60px;width:220px">
+        <div style="position:relative"><h2 id="t-contoh">Contoh langsung</h2><span class="small" style="color:var(--on-dark)">Netto 5.210 kg · potongan 3% · Rp2.850/kg</span></div>
+        <div id="example" style="position:relative"></div>
+      </section>
+    </div>
+
+    <!-- Perangkat -->
+    <div class="col" id="pane-perangkat" role="tabpanel" hidden>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px" id="devices"></div>
+      <p class="notice" style="box-shadow:inset 0 0 0 1.5px #B3C2B0;color:var(--ink-2)"><span><strong style="color:var(--ink)">Sebelum memakai perangkat nyata</strong>Merek dan model indikator, jenis koneksi (RS-232, USB atau LAN) dan format datanya perlu dicek dan diuji di lokasi. Prototipe ini memakai simulator dan belum terhubung ke perangkat apa pun.</span></p>
+    </div>
+
+    <!-- Pengguna -->
+    <div class="row" id="pane-pengguna" role="tabpanel" hidden>
+      <section class="card f1" aria-labelledby="t-user">
+        <div class="card-head"><h2 id="t-user">Pengguna</h2><button type="button" class="btn btn-sm btn-primary btn-pill" id="invite-btn">+ Undang</button></div>
+        <div class="col" style="gap:8px" id="users"></div>
+      </section>
+      <section class="card f2" aria-labelledby="t-matrix" style="padding:20px 12px 12px">
+        <h2 id="t-matrix" style="padding:0 12px">Hak akses per peran</h2>
+        <div class="table-wrap">
+          <table class="rows" style="min-width:600px">
+            <thead><tr><th>Tindakan</th><th style="text-align:center">Operator</th><th style="text-align:center">Admin</th><th style="text-align:center">Pemilik</th><th style="text-align:center">Auditor</th></tr></thead>
+            <tbody id="matrix"></tbody>
+          </table>
+        </div>
+        <span class="xs muted" style="padding:4px 12px">✓ boleh · A = boleh mengajukan, perlu persetujuan · — tidak boleh</span>
+      </section>
+    </div>
+
+    <!-- Audit -->
+    <section class="card" id="pane-audit" role="tabpanel" hidden>
+      <div class="card-head">
+        <h2>Jejak audit</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <label class="searchbox soft" style="height:40px"><span class="sr-only">Cari di audit</span><input type="search" id="aq" placeholder="Cari kejadian atau nama" autocomplete="off"></label>
+          <button type="button" class="btn btn-sm btn-teal btn-pill" id="audit-csv">Ekspor CSV</button>
+        </div>
+      </div>
+      <div class="pilltabs" id="cats" role="group" aria-label="Filter kategori" style="gap:6px"></div>
+      <ol class="col" style="list-style:none;padding:0;gap:6px" id="audit"></ol>
+      <div class="list-foot"><span id="audit-count"></span><button type="button" class="btn btn-sm btn-outline" id="audit-more" hidden>Tampilkan lebih banyak</button></div>
+      <span class="xs muted">Log tidak bisa diubah atau dihapus dari aplikasi.</span>
+    </section>
+
+    <!-- Data demo -->
+    <section class="card" id="pane-data" role="tabpanel" hidden style="max-width:720px">
+      <h2>Data demo</h2>
+      <p class="card-sub">Prototipe ini menyimpan seluruh data di browser (localStorage). Tidak ada server. Data dibuat otomatis: supplier, kendaraan, transaksi 30 hari, harga, nota dan audit.</p>
+      <div class="mini-stats soft" id="data-stats"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <button type="button" class="btn btn-danger" id="reset-btn">Reset data demo</button>
+        <button type="button" class="btn btn-outline" id="backup-btn">Unduh cadangan (JSON)</button>
+      </div>
+      <p class="xs muted">Reset menghapus perubahan Anda dan membuat ulang data contoh dengan tanggal hari ini.</p>
+    </section>
+  </main>
+</div>
+<div id="toast-root" class="toast-root" aria-live="polite"></div>
+<script src="../assets/js/store.js?v=2"></script>
+<script src="../assets/js/ui.js?v=2"></script>
+<script src="../assets/js/pages/pengaturan.js?v=2"></script>
+</body>
+</html>

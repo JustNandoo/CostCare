@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ringkasan — CostCare</title>
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/base.css?v=2">
+  <link rel="stylesheet" href="../assets/css/app.css?v=2">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar" id="topbar"></header>
+
+  <main id="main" class="col">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow" id="subtitle">—</div>
+        <h1 id="greet">Selamat datang</h1>
+      </div>
+      <div class="segmented" role="group" aria-label="Periode" id="period">
+        <button type="button" data-period="hari" aria-pressed="true">Hari ini</button>
+        <button type="button" data-period="7" aria-pressed="false">7 hari</button>
+        <button type="button" data-period="bulan" aria-pressed="false">Bulan ini</button>
+      </div>
+    </div>
+
+    <div class="row stretch">
+      <section class="card card-dark f2" aria-labelledby="t-tonase" style="flex-direction:row;flex-wrap:wrap;align-items:flex-end;gap:24px;padding:26px 28px">
+        <img class="watermark" src="../assets/img/costcare-mark.png" alt="" style="left:-70px;top:-80px;width:300px">
+        <div style="position:relative;flex:1 1 220px;display:flex;flex-direction:column;gap:6px">
+          <h2 id="t-tonase" style="font-size:14px;font-weight:500;color:var(--on-dark)">Tonase netto · <span id="period-label">hari ini</span></h2>
+          <span class="num" style="font-size:76px;line-height:1;font-weight:600;letter-spacing:-.04em"><span id="k-ton">—</span><span style="font-size:26px;color:var(--lime);letter-spacing:0"> ton</span></span>
+          <span class="small" style="color:var(--on-dark)" id="k-ton-sub">—</span>
+        </div>
+        <div style="position:relative;flex:1.4 1 300px">
+          <div class="bars on-dark" id="bars7" role="img" aria-label="Tonase 7 hari terakhir" style="height:190px"></div>
+        </div>
+      </section>
+
+      <div class="col f1">
+        <section class="kpi lime" style="flex:1 1 auto;justify-content:space-between">
+          <span class="label">Nilai pembelian TBS</span>
+          <span class="value" style="font-size:40px" id="k-nilai">—</span>
+          <span class="sub" id="k-nilai-sub">—</span>
+        </section>
+        <a class="kpi" href="pembayaran.html" style="flex:1 1 auto">
+          <span class="label" style="display:flex;justify-content:space-between">Belum dibayar ke supplier <span aria-hidden="true" style="color:var(--teal)">→</span></span>
+          <span class="value" id="k-unpaid">—</span>
+          <span class="sub" id="k-unpaid-sub">—</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="row stretch">
+      <section class="card f2" aria-labelledby="t-jalur">
+        <div class="card-head">
+          <h2 id="t-jalur">Jalur timbang sekarang</h2>
+          <a href="timbang.html" class="small strong">Buka Timbang →</a>
+        </div>
+        <div id="lane"></div>
+      </section>
+
+      <section class="card f1" aria-labelledby="t-trx">
+        <h2 id="t-trx" style="font-size:14px;font-weight:500;color:var(--ink-2)">Transaksi · <span id="period-label-2">hari ini</span></h2>
+        <span class="num" style="font-size:56px;line-height:1;font-weight:600;letter-spacing:-.04em" id="k-count">—</span>
+        <div class="stack" id="k-stack" role="img"></div>
+        <ul class="legend" id="k-legend"></ul>
+      </section>
+    </div>
+
+    <div class="row stretch">
+      <section class="card f15" aria-labelledby="t-review">
+        <div class="card-head"><h2 id="t-review">Perlu keputusan</h2><span class="chip chip-warn" id="review-count">0</span></div>
+        <div class="col" style="gap:10px" id="review-list"></div>
+        <p class="xs muted">Ditandai oleh aturan yang bisa diatur. Sistem tidak pernah mengubah berat, harga atau pembayaran sendiri.</p>
+      </section>
+
+      <a class="card card-mint f1" href="harga.html" id="price-card" style="text-decoration:none;flex-basis:260px"></a>
+
+      <section class="card f15" aria-labelledby="t-sup">
+        <div class="card-head"><h2 id="t-sup">Supplier teraktif</h2><a href="supplier.html" class="small strong">Semua</a></div>
+        <div class="col" style="gap:12px" id="top-sup"></div>
+      </section>
+    </div>
+
+    <section class="card" aria-labelledby="t-recent" style="padding:22px 12px 12px">
+      <div class="card-head" style="padding:0 12px">
+        <h2 id="t-recent">Transaksi terbaru</h2>
+        <a href="transaksi.html" class="small strong">Semua transaksi →</a>
+      </div>
+      <div class="table-wrap">
+        <table class="rows" style="min-width:860px">
+          <thead><tr><th>Waktu</th><th>Supplier</th><th>Kendaraan</th><th class="right">Netto</th><th class="right">Total</th><th>Transaksi</th><th>Pembayaran</th></tr></thead>
+          <tbody id="recent"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast-root" class="toast-root" aria-live="polite"></div>
+<script src="../assets/js/store.js?v=2"></script>
+<script src="../assets/js/ui.js?v=2"></script>
+<script src="../assets/js/pages/ringkasan.js?v=2"></script>
+</body>
+</html>
